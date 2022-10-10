@@ -1,17 +1,17 @@
-# This is a sample Python script.
+from bs4 import BeautifulSoup
+import requests
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+response = requests.get("https://web.archive.org/web/20200518073855/https://www.empireonline.com/movies/features/best"
+                        "-movies-2/")
+yc_web_page = response.text
+
+soup = BeautifulSoup(yc_web_page, "html.parser")
+articles = soup.find_all(name="h3", class_="title")
+article_texts = []
+
+for article_tag in articles:
+    text = article_tag.getText()
+    article_texts.append(text)
+print(article_texts)
 
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
-
-
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
-
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
